@@ -87,5 +87,5 @@ Needs cookie support improvement.
 
 ## see also
 
-(https://github.com/maboiteaspam/http-replayer)[http-replayer]
-(https://github.com/maboiteaspam/http-flow-visualizer)[http-flow-visualizer]
+[http-replayer](https://github.com/maboiteaspam/http-replayer)
+[http-flow-visualizer](https://github.com/maboiteaspam/http-flow-visualizer)
