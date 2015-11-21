@@ -55,7 +55,7 @@ File to the default request responder,
 
 ##### keyspace distribution
 
-As my attempt, i made a time based keyspace distribution.
+As my first attempt, i made a time based keyspace distribution.
 
 Every `100ms` a new keyspace is created.
 
