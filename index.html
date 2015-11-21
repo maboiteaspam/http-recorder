@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Http-recorder by maboiteaspam</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Http-recorder</h1>
+      <h2 class="project-tagline">serve an http server to record all incoming requests into a redis backend</h2>
+      <a href="https://github.com/maboiteaspam/http-recorder" class="btn">View on GitHub</a>
+      <a href="https://github.com/maboiteaspam/http-recorder/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/maboiteaspam/http-recorder/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="http-recorder" class="anchor" href="#http-recorder" aria-hidden="true"><span class="octicon octicon-link"></span></a>http-recorder</h1>
+
+<p>node module which serves an http server and records
+all incoming requests into a redis backend.</p>
+
+<p>By default the response is a static html file.</p>
+
+<p>Check <code>--response=</code>, <code>--recorder=</code>,  <code>--responder=</code>,
+options to personalize that behavior at your convenience.</p>
+
+<h2>
+<a id="install" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>install</h2>
+
+<pre><code>npm i maboiteaspam/http-recorder -g
+</code></pre>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>usage</h2>
+
+<pre><code>redis-server
+http-recorder [opts]
+</code></pre>
+
+<h5>
+<a id="--verbose" class="anchor" href="#--verbose" aria-hidden="true"><span class="octicon octicon-link"></span></a>--verbose</h5>
+
+<p>More verbose.</p>
+
+<h5>
+<a id="--rport6379" class="anchor" href="#--rport6379" aria-hidden="true"><span class="octicon octicon-link"></span></a>--rport=<code>6379</code>
+</h5>
+
+<p>Redis port</p>
+
+<h5>
+<a id="--rhost0000" class="anchor" href="#--rhost0000" aria-hidden="true"><span class="octicon octicon-link"></span></a>--rhost=<code>0.0.0.0</code>
+</h5>
+
+<p>Redis host</p>
+
+<h5>
+<a id="--ropts" class="anchor" href="#--ropts" aria-hidden="true"><span class="octicon octicon-link"></span></a>--ropts=``</h5>
+
+<p>Redis options as a stringified json object</p>
+
+<h5>
+<a id="--port9615" class="anchor" href="#--port9615" aria-hidden="true"><span class="octicon octicon-link"></span></a>--port=<code>9615</code>
+</h5>
+
+<p>Recorder http server port</p>
+
+<h5>
+<a id="--host0000" class="anchor" href="#--host0000" aria-hidden="true"><span class="octicon octicon-link"></span></a>--host=<code>0.0.0.0</code>
+</h5>
+
+<p>Recorder http server host</p>
+
+<h5>
+<a id="--response" class="anchor" href="#--response" aria-hidden="true"><span class="octicon octicon-link"></span></a>--response=``</h5>
+
+<p>File to the default response file, if static.</p>
+
+<h5>
+<a id="--recorder" class="anchor" href="#--recorder" aria-hidden="true"><span class="octicon octicon-link"></span></a>--recorder=``</h5>
+
+<p>File to the default request recorder,
+ a require-able javascript file which expose a function such
+ <code>responder(req, res)</code>.</p>
+
+<h5>
+<a id="--responder" class="anchor" href="#--responder" aria-hidden="true"><span class="octicon octicon-link"></span></a>--responder=``</h5>
+
+<p>File to the default request responder,
+ a require-able javascript file which expose a function such
+ <code>responder(req, res)</code>.</p>
+
+<h2>
+<a id="more-info" class="anchor" href="#more-info" aria-hidden="true"><span class="octicon octicon-link"></span></a>more info</h2>
+
+<h5>
+<a id="keyspace-distribution" class="anchor" href="#keyspace-distribution" aria-hidden="true"><span class="octicon octicon-link"></span></a>keyspace distribution</h5>
+
+<p>It s a time based keyspace distribution.</p>
+
+<p>Every <code>100ms</code> a new keyspace is created.</p>
+
+<p>The complete <code>keyspace</code> is recorded into a <code>set</code> named <code>blockKeys</code>.</p>
+
+<p>Empty <code>keyspace</code> are deleted at runtime.</p>
+
+<h5>
+<a id="request-saving" class="anchor" href="#request-saving" aria-hidden="true"><span class="octicon octicon-link"></span></a>request saving</h5>
+
+<p>Each request is saved json serialized into a <code>list</code> per <code>r[keyspace id]</code>.</p>
+
+<p>Each request know its <code>keyspace</code> and a <code>jobId</code>.</p>
+
+<p><code>jobId</code> is an incremented integer to keep track of the data.</p>
+
+<h2>
+<a id="need" class="anchor" href="#need" aria-hidden="true"><span class="octicon octicon-link"></span></a>need</h2>
+
+<h5>
+<a id="optimizations" class="anchor" href="#optimizations" aria-hidden="true"><span class="octicon octicon-link"></span></a>optimizations</h5>
+
+<p>They are rooms too optimize. Noticeable example is the redis writes,
+which are made by items, should be made by collection.</p>
+
+<h5>
+<a id="improve-cookie-support" class="anchor" href="#improve-cookie-support" aria-hidden="true"><span class="octicon octicon-link"></span></a>improve cookie support</h5>
+
+<p>Needs cookie support improvement.</p>
+
+<h2>
+<a id="see-also" class="anchor" href="#see-also" aria-hidden="true"><span class="octicon octicon-link"></span></a>see also</h2>
+
+<ul>
+<li><a href="https://github.com/maboiteaspam/http-replayer">http-replayer</a></li>
+<li><a href="https://github.com/maboiteaspam/http-flow-visualizer">http-flow-visualizer</a></li>
+</ul>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/maboiteaspam/http-recorder">Http-recorder</a> is maintained by <a href="https://github.com/maboiteaspam">maboiteaspam</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
