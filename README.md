@@ -55,22 +55,21 @@ File to the default request responder,
 
 ##### keyspace distribution
 
-As my first attempt, i made a time based keyspace distribution.
+It s a time based keyspace distribution.
 
 Every `100ms` a new keyspace is created.
 
-It also tries to keep the keyspace size low
-by removing empty keyspaces at runtime.
-
 The complete `keyspace` is recorded into a `set` named `blockKeys`.
+
+Empty `keyspace` are deleted at runtime.
 
 ##### request saving
 
-Each request is saved json serialized into a `llist` per `r[keyspace id]`.
+Each request is saved json serialized into a `list` per `r[keyspace id]`.
 
 Each request know its `keyspace` and a `jobId`.
 
-`jobId` is a incremented integer to keep track of the data.
+`jobId` is an incremented integer to keep track of the data.
 
 
 ## need
