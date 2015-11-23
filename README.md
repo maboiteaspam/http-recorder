@@ -76,7 +76,7 @@ are `lpush`ed to a redis `list` name `r[blockKey]`.
 
 Each request know its `blockKey` and a `jobId`.
 
-`jobId` is an incremented integer to keep track of the data.
+`jobId` is an incremented integer within the `keyspace`.
 
 When the request is a `POST` or `PUT`, its content
 is immediately streamed to a redis `key` as a string value.
@@ -85,14 +85,14 @@ The content can be found at address `c[blockKey]-[jobId]`
 
 ##### request processing
 
-Two handlers are available process requests `recorder`, `responder`.
+Two handlers are available to process the requests: `recorder`, `responder`.
 
 They are passed on the command line.
 
 They must be a `require`able javascript file.
 
-They must call `next`, otherwise the timeout
-will clean up the mess after `30` seconds.
+They must call `done`, otherwise a timeout
+will arbitrary clean up the mess after `30` seconds.
 
 They receive `blockKey` and `jobId` data to sync with each other.
 
