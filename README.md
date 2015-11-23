@@ -20,6 +20,8 @@ options to personalize that behavior at your convenience.
 
     redis-server
     http-recorder --verbose [opts]
+    ab -c 3000 -n 90000 http://127.0.0.1:9615/
+
 
 ##### --verbose
 More verbose.
