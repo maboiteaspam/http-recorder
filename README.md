@@ -96,6 +96,7 @@ will arbitrary clean up the mess after `30` seconds.
 
 They receive `blockKey` and `jobId` data to sync with each other.
 
+__usage__
 ```
     http-recorder --verbose --recorder=path/to/file.js
 ```
