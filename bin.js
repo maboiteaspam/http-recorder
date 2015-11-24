@@ -88,7 +88,8 @@ var recorder = function (req, res, blockKey, jobId, next) {
     "method": req.method,
     "url": req.url,
     "jobId": jobId,
-    "blockKey": blockKey
+    "blockKey": blockKey,
+    "remoteAddress": req.connection.remoteAddress
   }));
   if (req.method.match(/post|put/i)) {
     req.pipe(redisWStream(client, 'c'+blockKey+'-'+jobId))
